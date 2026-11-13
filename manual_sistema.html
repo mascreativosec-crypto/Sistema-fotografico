@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual Técnico y Guía de Despliegue - StudioFoto Pro</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 18mm 16mm 18mm 16mm;
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1e293b;
+      background: #ffffff;
+      line-height: 1.55;
+      font-size: 11pt;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-break {
+      page-break-after: always;
+      break-after: page;
+    }
+
+    /* Portada */
+    .cover {
+      height: 98vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #f8fafc 0%, #eef2ff 50%, #ffffff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(99,102,241,0.18) 0%, rgba(99,102,241,0) 70%);
+      border-radius: 50%;
+    }
+
+    .cover-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cover-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: 800;
+      box-shadow: 0 10px 20px rgba(79,70,229,0.25);
+    }
+
+    .cover-title-box {
+      margin-top: 60px;
+    }
+
+    .badge-tag {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 30px;
+      background: #e0e7ff;
+      color: #4338ca;
+      font-size: 10pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 20px;
+    }
+
+    .cover-title {
+      font-size: 34pt;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.15;
+      margin: 0 0 16px 0;
+      letter-spacing: -1px;
+    }
+
+    .cover-subtitle {
+      font-size: 15pt;
+      color: #475569;
+      font-weight: 400;
+      max-width: 90%;
+      margin: 0 0 30px 0;
+      line-height: 1.4;
+    }
+
+    .cover-meta {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      box-shadow: 0 4px 12px rgba(15,23,42,0.04);
+    }
+
+    .meta-item b {
+      display: block;
+      font-size: 9pt;
+      text-transform: uppercase;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .meta-item span {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    /* Títulos y Secciones */
+    h1 {
+      font-size: 20pt;
+      font-weight: 800;
+      color: #0f172a;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 10px;
+      margin-top: 30px;
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h1 span.num {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13pt;
+      font-weight: 800;
+    }
+
+    h2 {
+      font-size: 14pt;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h3 {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #334155;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #334155;
+    }
+
+    /* Tarjetas y Contenedores */
+    .card-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+
+    .card-highlight {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 5px solid #22c55e;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .card-warning {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 5px solid #f59e0b;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .card-info {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid #3b82f6;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    /* Grillas */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .feature-card b {
+      color: #4f46e5;
+      font-size: 10.5pt;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .feature-card p {
+      font-size: 9.5pt;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* Tablas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 10pt;
+    }
+
+    table th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 2px solid #cbd5e1;
+    }
+
+    table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+    }
+
+    table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    /* Código */
+    code, pre {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+    }
+
+    code {
+      background: #f1f5f9;
+      color: #475569;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 9pt;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 9pt;
+      overflow-x: auto;
+      margin: 14px 0;
+      line-height: 1.45;
+    }
+
+    /* Pasos */
+    .step-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #4f46e5;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 11pt;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 8px rgba(79,70,229,0.25);
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-content b {
+      color: #0f172a;
+      font-size: 11pt;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Diagrama SVG */
+    .diagram-wrap {
+      text-align: center;
+      margin: 20px 0;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    /* Badges de credenciales */
+    .cred-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 8.5pt;
+    }
+    .cred-admin { background: #fee2e2; color: #b91c1c; }
+    .cred-foto { background: #e0e7ff; color: #4338ca; }
+    .cred-recep { background: #fef3c7; color: #b45309; }
+    .cred-edit { background: #dcfce7; color: #15803d; }
+  </style>
+</head>
+<body>
+
+  <!-- ================= PORTADA ================= -->
+  <div class="cover page-break">
+    <div class="cover-header">
+      <div class="cover-logo">SP</div>
+      <div>
+        <strong style="font-size: 14pt; color: #0f172a; display: block;">StudioFoto Pro</strong>
+        <span style="font-size: 10pt; color: #64748b;">Sistema de Gestión Integral para Estudios Fotográficos</span>
+      </div>
+    </div>
+
+    <div class="cover-title-box">
+      <span class="badge-tag">Documentación Oficial de Ingeniería</span>
+      <h1 class="cover-title">Manual Técnico, Guía de Instalación y Despliegue en la Nube</h1>
+      <p class="cover-subtitle">
+        Arquitectura tecnológica, inventario funcional exhaustivo, manual de puesta en marcha paso a paso en entornos locales (Windows / Laragon / XAMPP) y guía de despliegue en producción (Hostinger / cPanel).
+      </p>
+    </div>
+
+    <div>
+      <div class="cover-meta">
+        <div class="meta-item">
+          <b>Plataforma</b>
+          <span>PHP 8.x + MySQL 8</span>
+        </div>
+        <div class="meta-item">
+          <b>Arquitectura</b>
+          <span>MVC + SysTienda UI</span>
+        </div>
+        <div class="meta-item">
+          <b>Versión del Sistema</b>
+          <span>v2.5 Enterprise</span>
+        </div>
+      </div>
+      <p style="text-align: right; margin-top: 14px; font-size: 8.5pt; color: #94a3b8;">
+        Fecha de emisión: Octubre 2026 · Licencia Comercial Exclusiva
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= CAPÍTULO 1 ================= -->
+  <section class="page-break">
+    <h1><span class="num">1</span> Tecnologías Empleadas en el Desarrollo</h1>
+    <p>
+      <strong>StudioFoto Pro</strong> fue desarrollado bajo una arquitectura web limpia, modular y de altísimo rendimiento. A diferencia de soluciones dependientes de frameworks pesados, el sistema se basa en <strong>PHP Orientado a Objetos (OOP) con patrón MVC Nativo</strong>, lo que garantiza una velocidad de carga instantánea (< 100 ms), portabilidad total en cualquier servidor y cero costo de dependencias innecesarias.
+    </p>
+
+    <h2>1.1 Stack Tecnológico Principal</h2>
+    <div class="grid-2">
+      <div class="feature-card">
+        <b>Backend · PHP 8.x (Nativo OOP)</b>
+        <p>Controladores limpios, enrutamiento centralizado vía Front-Controller (<code>public/index.php</code>), manejo estricto de sesiones seguras y conexión PDO preparada contra inyecciones SQL.</p>
+      </div>
+      <div class="feature-card">
+        <b>Base de Datos · MySQL 8.0 / MariaDB</b>
+        <p>Motor transaccional InnoDB con integridad referencial, claves foráneas en cascada y codificación UTF-8 Multibyte (<code>utf8mb4_unicode_ci</code>) para compatibilidad total con tildes y caracteres especiales.</p>
+      </div>
+      <div class="feature-card">
+        <b>Frontend & UI Kit · SysTienda Theme</b>
+        <p>Sistema de diseño <em>Clean Indigo & Violet SaaS</em>, con diseño dual (Modo Claro y Modo Oscuro con selector instantáneo), CSS3 nativo, variables semánticas y micro-animaciones fluidas.</p>
+      </div>
+      <div class="feature-card">
+        <b>Inteligencia Artificial · Multi-Proveedor</b>
+        <p>Capa de integración API directa que soporta Google Gemini, OpenAI (GPT-4o), Anthropic Claude, Groq y Ollama Local, permitiendo conversión Text-to-SQL y analítica conversacional.</p>
+      </div>
+    </div>
+
+    <h2>1.2 Diagrama de Arquitectura del Sistema</h2>
+    <div class="diagram-wrap">
+      <svg width="100%" height="150" viewBox="0 0 700 150" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cliente -->
+        <rect x="20" y="35" width="130" height="80" rx="12" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="85" y="70" font-family="Inter" font-size="12" font-weight="700" fill="#312e81" text-anchor="middle">Navegador Web</text>
+        <text x="85" y="90" font-family="Inter" font-size="10" fill="#4338ca" text-anchor="middle">HTML5 / JS / CSS</text>
+
+        <!-- Flecha 1 -->
+        <path d="M 155 75 L 205 75" stroke="#6366f1" stroke-width="2" marker-end="url(#arrow)"/>
+        
+        <!-- Router / Front Controller -->
+        <rect x="210" y="35" width="130" height="80" rx="12" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>
+        <text x="275" y="70" font-family="Inter" font-size="12" font-weight="700" fill="#0f172a" text-anchor="middle">Front Controller</text>
+        <text x="275" y="90" font-family="Inter" font-size="10" fill="#475569" text-anchor="middle">public/index.php</text>
+
+        <!-- Flecha 2 -->
+        <path d="M 345 75 L 395 75" stroke="#6366f1" stroke-width="2"/>
+
+        <!-- Controladores MVC -->
+        <rect x="400" y="20" width="130" height="110" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+        <text x="465" y="55" font-family="Inter" font-size="12" font-weight="700" fill="#1e3a8a" text-anchor="middle">Controladores</text>
+        <text x="465" y="75" font-family="Inter" font-size="9" fill="#1e40af" text-anchor="middle">Sesiones / CRM</text>
+        <text x="465" y="92" font-family="Inter" font-size="9" fill="#1e40af" text-anchor="middle">Caja / Empresa</text>
+        <text x="465" y="109" font-family="Inter" font-size="9" fill="#1e40af" text-anchor="middle">IA / Backup</text>
+
+        <!-- Flecha 3 -->
+        <path d="M 535 75 L 585 75" stroke="#6366f1" stroke-width="2"/>
+
+        <!-- Base de Datos -->
+        <rect x="590" y="35" width="95" height="80" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+        <text x="637" y="70" font-family="Inter" font-size="12" font-weight="700" fill="#064e3b" text-anchor="middle">MySQL</text>
+        <text x="637" y="90" font-family="Inter" font-size="10" fill="#047857" text-anchor="middle">InnoDB</text>
+      </svg>
+      <small style="color: #64748b; font-size: 9pt;">Flujo de solicitud: Cliente → Front Controller (Router) → Controlador Específico → Acceso PDO / Vistas Renderizadas.</small>
+    </div>
+
+    <h2>1.3 Librerías Complementarias Integradas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Librería / Recurso</th>
+          <th>Tipo</th>
+          <th>Propósito en el Sistema</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Bootstrap 5.3</strong></td>
+          <td>Framework CSS</td>
+          <td>Sistema de grilla responsiva, modales, offcanvas y componentes base.</td>
+        </tr>
+        <tr>
+          <td><strong>Bootstrap Icons 1.11</strong></td>
+          <td>Tipografía Vectorial</td>
+          <td>Más de 150 iconos estilizados en navegación, botones y tarjetas.</td>
+        </tr>
+        <tr>
+          <td><strong>Chart.js</strong></td>
+          <td>Visualización de Datos</td>
+          <td>Gráficos interactivos de ingresos mensuales y paquetes fotográficos.</td>
+        </tr>
+        <tr>
+          <td><strong>Google Fonts (Inter / Outfit)</strong></td>
+          <td>Tipografía Web</td>
+          <td>Legibilidad óptima para dashboards analíticos y reportes.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ================= CAPÍTULO 2 ================= -->
+  <section class="page-break">
+    <h1><span class="num">2</span> Inventario Exhaustivo de Funcionalidades</h1>
+    <p>
+      El sistema cuenta con un ecosistema completo de módulos diseñados específicamente para resolver la operativa comercial, técnica y financiera de un estudio de fotografía moderno:
+    </p>
+
+    <div class="grid-2">
+      <div class="card-box">
+        <h3 style="color:#4f46e5;">1. Dashboard & Analítica</h3>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 0;">
+          <li>Métricas clave: Ingresos del mes, saldo pendiente, sesiones activas.</li>
+          <li>Velocímetro de cumplimiento de meta mensual configurable.</li>
+          <li>Resumen dinámico de arqueo de caja chica en tiempo real.</li>
+          <li>Gráficos analíticos de facturación y paquetes más contratados.</li>
+        </ul>
+      </div>
+      <div class="card-box">
+        <h3 style="color:#0ea5e9;">2. Sesiones & Producción</h3>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 0;">
+          <li>Ciclo de vida de 6 etapas: Programada, En Estudio, Edición, Para Entrega, Entregada y Cancelada.</li>
+          <li>Asignación de fotógrafo titular, paquete y locación.</li>
+          <li>Control de pagos por sesión: total pactado, adelanto y saldo.</li>
+        </ul>
+      </div>
+      <div class="card-box">
+        <h3 style="color:#10b981;">3. Agenda & Calendario</h3>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 0;">
+          <li>Visualización interactiva de citas fotográficas por día, semana y mes.</li>
+          <li>Control de concurrencia para evitar cruces en salas de estudio.</li>
+          <li>Acceso rápido para crear o reprogramar sesiones.</li>
+        </ul>
+      </div>
+      <div class="card-box">
+        <h3 style="color:#f59e0b;">4. Clientes & Directorio 360</h3>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 0;">
+          <li>Expediente individual del cliente con historial completo de sesiones.</li>
+          <li>Control de pagos acumulados y saldo deudor global.</li>
+          <li>Documentos de identidad (DNI, RUC, Pasaporte) y WhatsApp directo.</li>
+        </ul>
+      </div>
+      <div class="card-box">
+        <h3 style="color:#8b5cf6;">5. Catálogo de Paquetes</h3>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 0;">
+          <li>Gestión de paquetes: Bodas, Quinceaños, Smash Cake, Maternidad, etc.</li>
+          <li>Configuración de precio base, fotos editadas incluidas y extras.</li>
+          <li>Activación / Desactivación de paquetes en 1 clic.</li>
+        </ul>
+      </div>
+      <div class="card-box">
+        <h3 style="color:#ef4444;">6. Equipos & Inventario</h3>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 0;">
+          <li>Control de cámaras, lentes, flashes y equipo de iluminación.</li>
+          <li>Estados: Disponible, En Uso, En Mantenimiento o Dañado.</li>
+          <li>Número de serie, fecha de compra y valor monetario estimado.</li>
+        </ul>
+      </div>
+      <div class="card-box">
+        <h3 style="color:#059669;">7. Caja Chica & Turnos</h3>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 0;">
+          <li>Apertura y cierre de caja con arqueo por turno.</li>
+          <li>Registro detallado de ingresos y egresos menores del estudio.</li>
+          <li>Desglose por método: Efectivo, Tarjeta, Yape/Plin y Transferencia.</li>
+        </ul>
+      </div>
+      <div class="card-box">
+        <h3 style="color:#d97706;">8. Pagos & Cobranzas</h3>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 0;">
+          <li>Registro de anticipos / señas vinculadas directamente a la sesión.</li>
+          <li>Generación de recibos digitales de pago con folio correlativo.</li>
+          <li>Alertas automáticas de sesiones con saldo pendiente de cobro.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card-highlight">
+      <h3 style="color: #15803d; margin-top:0;">Módulos Avanzados de Alto Valor Comercial:</h3>
+      <ul style="font-size: 9.5pt; color: #166534; padding-left: 18px; margin-bottom: 0;">
+        <li><strong>Pipeline CRM & Segmentación RFM:</strong> Tablero Kanban para prospectos y oportunidades comerciales, matrices automáticas de clientes ("Campeones", "Leales", "En Riesgo", "No Perder").</li>
+        <li><strong>Asistente de IA (Text-to-SQL):</strong> Motor que interpreta preguntas en español y genera consultas SQL seguras para responder dudas de ingresos, sesiones y clientes al instante.</li>
+        <li><strong>Configuración de Empresa & Marca:</strong> Personalización de logotipo, RUC, eslogan, datos de contacto, símbolo de moneda, separador decimal y miles.</li>
+        <li><strong>Copia de Seguridad & Reset del Sistema:</strong> Generador de backup SQL descargable, restaurador Drag & Drop y reset transaccional seguro para iniciar una nueva empresa.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= CAPÍTULO 3 ================= -->
+  <section class="page-break">
+    <h1><span class="num">3</span> Instalación Paso a Paso en una PC Nueva</h1>
+    <p>
+      Para poner en funcionamiento el sistema en un equipo local con sistema operativo Windows (o Mac/Linux), siga el siguiente procedimiento estandarizado:
+    </p>
+
+    <h2>3.1 Software Requerido (Programas a Descargar)</h2>
+    <div class="grid-2">
+      <div class="feature-card">
+        <b>1. Laragon Full (Altamente Recomendado)</b>
+        <p>Entorno de desarrollo portátil, ligero y rápido para Windows. Incluye Apache 2.4, PHP 8.x, MySQL 8 y phpMyAdmin con 1 solo clic.</p>
+        <small style="color:#4f46e5; font-weight:600;">Descargar de: https://laragon.org/download/</small>
+      </div>
+      <div class="feature-card">
+        <b>2. XAMPP (Opción Alternativa)</b>
+        <p>Si ya cuenta con XAMPP, asegúrese de tener instalada la versión compatible con PHP 8.1 o superior.</p>
+        <small style="color:#4f46e5; font-weight:600;">Descargar de: https://www.apachefriends.org/</small>
+      </div>
+    </div>
+
+    <h2>3.2 Guía de Puesta en Marcha (Paso a Paso con Laragon)</h2>
+
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <b>Instalar Laragon</b>
+        <p>Ejecute el instalador descargado (<code>laragon-wamp.exe</code>). Seleccione la ruta por defecto (<code>C:\laragon</code>) y complete el asistente dando clic en <em>Next → Install</em>.</p>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <b>Iniciar los Servicios de Servidor Web y Base de Datos</b>
+        <p>Abra la aplicación <strong>Laragon</strong> y haga clic en el botón verde <strong>"Start All"</strong> (o "Iniciar todo"). Los servicios <em>Apache</em> y <em>MySQL</em> quedarán encendidos inmediatamente.</p>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <b>Ubicar los Archivos del Proyecto</b>
+        <p>Copie la carpeta de la aplicación dentro del directorio raíz de Laragon:</p>
+        <pre>C:\laragon\www\sys_fotografia\</pre>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <b>Crear e Importar la Base de Datos MySQL</b>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 6px 0;">
+          <li>En Laragon, haga clic en el botón <strong>"Database"</strong> (o abra el navegador en <code>http://localhost/phpmyadmin</code>).</li>
+          <li>Cree una nueva base de datos llamada exactamente: <code>sys_fotografia</code> con cotejamiento <code>utf8mb4_unicode_ci</code>.</li>
+          <li>Vaya a la pestaña <strong>"Importar"</strong>, seleccione el archivo <code>database/schema.sql</code> y presione <strong>"Continuar"</strong>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <b>Verificar la Conexión en <code>app/config/config.php</code></b>
+        <p>Abra el archivo <code>app/config/config.php</code> y corrobore que los parámetros locales coincidan:</p>
+        <pre>define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'sys_fotografia');</pre>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <b>Acceder al Sistema desde el Navegador</b>
+        <p>Abra Google Chrome o Microsoft Edge e ingrese a cualquiera de las siguientes URLs:</p>
+        <pre>http://localhost/sys_fotografia/   ó   http://sys_fotografia.test/</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CAPÍTULO 4 ================= -->
+  <section class="page-break">
+    <h1><span class="num">4</span> Opciones de Hosting Web Sugeridas</h1>
+    <p>
+      Para que el estudio fotográfico pueda acceder al sistema desde cualquier lugar (teléfonos móviles, tablets de recepción o laptops en locaciones externas), se requiere hospedar el sistema en un proveedor web confiable:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Proveedor</th>
+          <th>Plan Recomendado</th>
+          <th>Ventajas Principales</th>
+          <th>Nivel de Recomendación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hostinger</strong></td>
+          <td>Cloud Startup o Premium Web Hosting</td>
+          <td>Panel hPanel intuitivo, instalador PHP 8.x con 1 clic, SSL gratis de por vida, almacenamiento NVMe ultra rápido y soporte 24/7 en español.</td>
+          <td><span class="badge-tag" style="background:#dcfce7; color:#15803d; margin:0; font-size:8.5pt;">MÁS RECOMENDADO ★★★★★</span></td>
+        </tr>
+        <tr>
+          <td><strong>Banahosting</strong></td>
+          <td>Bana Professional</td>
+          <td>cPanel tradicional, muy económico, excelente para proyectos PHP MySQL en Latinoamérica y soporte ágil.</td>
+          <td><span class="badge-tag" style="background:#e0e7ff; color:#4338ca; margin:0; font-size:8.5pt;">RECOMENDADO ★★★★☆</span></td>
+        </tr>
+        <tr>
+          <td><strong>SiteGround</strong></td>
+          <td>GrowBig</td>
+          <td>Máxima velocidad de servidor, copias de seguridad automáticas diarias y excelente seguridad. Precio de renovación más alto.</td>
+          <td><span class="badge-tag" style="background:#fef3c7; color:#b45309; margin:0; font-size:8.5pt;">PREMIUM ★★★★☆</span></td>
+        </tr>
+        <tr>
+          <td><strong>DigitalOcean / VPS</strong></td>
+          <td>Droplet 1GB RAM ($6/mes)</td>
+          <td>Control total de servidor Linux (Ubuntu/Nginx). Requiere conocimientos técnicos avanzados de administración de sistemas.</td>
+          <td><span class="badge-tag" style="background:#f1f5f9; color:#475569; margin:0; font-size:8.5pt;">AVANZADO ★★★☆☆</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-highlight">
+      <h3 style="color: #15803d; margin-top:0;">¿Por qué Hostinger es la opción número 1 para StudioFoto Pro?</h3>
+      <p style="font-size: 9.5pt; color: #166534; margin:0;">
+        Porque combina <strong>bajo costo mensual</strong> con soporte nativo para PHP 8.2/8.3, phpMyAdmin web moderno, administrador de archivos con descompresión de archivos <code>.zip</code> en un clic, certificados SSL automáticos y copias de seguridad periódicas sin necesidad de configurar servidores por consola.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= CAPÍTULO 5 ================= -->
+  <section class="page-break">
+    <h1><span class="num">5</span> Despliegue en Producción (Hostinger / cPanel)</h1>
+    <p>
+      Guía paso a paso para publicar <strong>StudioFoto Pro</strong> en el hosting seleccionado (ejemplo con <strong>Hostinger hPanel</strong> o cualquier hosting con <strong>cPanel</strong>):
+    </p>
+
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <b>Generar el Respaldo de la Base de Datos</b>
+        <p>En su instalación local, vaya al menú <strong>Ajustes & Personal > Copia de Seguridad</strong> y presione <strong>"Generar Backup Ahora"</strong>. Se descargará un archivo <code>backup_sys_fotografia_*.sql</code> listo para el servidor.</p>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <b>Empaquetar los Archivos del Proyecto</b>
+        <p>Comprima todo el contenido de la carpeta <code>sys_fotografia</code> en un archivo <strong><code>sys_fotografia.zip</code></strong>.</p>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <b>Crear la Base de Datos MySQL en el Hosting</b>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 6px 0;">
+          <li>Inicie sesión en el panel del hosting (hPanel o cPanel).</li>
+          <li>Ingrese a la sección <strong>"Bases de datos MySQL"</strong>.</li>
+          <li>Cree una nueva base de datos (ejemplo: <code>u123456_fotografia</code>), un usuario (ejemplo: <code>u123456_admin</code>) y defina una contraseña segura.</li>
+          <li>Guarde estos datos para el paso de configuración.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <b>Importar la Base de Datos en phpMyAdmin del Hosting</b>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 6px 0;">
+          <li>Abra el enlace <strong>"phpMyAdmin"</strong> que figura al lado de la base de datos recién creada en el hosting.</li>
+          <li>Haga clic en la pestaña <strong>"Importar"</strong>.</li>
+          <li>Seleccione el archivo <code>.sql</code> generado en el Paso 1 y presione <strong>"Continuar"</strong>. Todas las tablas y datos se crearán al instante.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <b>Subir y Descomprimir los Archivos en <code>public_html</code></b>
+        <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin: 6px 0;">
+          <li>En el panel del hosting, abra el <strong>"Administrador de Archivos" (File Manager)</strong>.</li>
+          <li>Ingrese a la carpeta <strong><code>public_html/</code></strong>.</li>
+          <li>Haga clic en <strong>"Subir"</strong> y cargue el archivo <code>sys_fotografia.zip</code>.</li>
+          <li>Haga clic derecho sobre el zip y seleccione <strong>"Extraer"</strong> para que los archivos queden en la raíz web.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <b>Actualizar las Credenciales en <code>app/config/config.php</code></b>
+        <p>Desde el Administrador de Archivos del hosting, edite el archivo <code>app/config/config.php</code> con los datos creados en el Paso 3:</p>
+        <pre>define('DB_HOST', 'localhost');
+define('DB_USER', 'u123456_admin');
+define('DB_PASS', 'TuClaveSeguraGenerada123!');
+define('DB_NAME', 'u123456_fotografia');</pre>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">7</div>
+      <div class="step-content">
+        <b>Activar el Certificado de Seguridad SSL (HTTPS)</b>
+        <p>En el panel de Hostinger / cPanel, diríjase a la sección <strong>"Seguridad > SSL"</strong> y active el certificado <em>Let's Encrypt</em> para su dominio. Esto forzará las conexiones seguras y protegerá el inicio de sesión.</p>
+      </div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">8</div>
+      <div class="step-content">
+        <b>Prueba y Verificación Final</b>
+        <p>Abra su dominio (ejemplo: <code>https://miestudiofotografico.com</code>) e inicie sesión con las credenciales de administrador.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CAPÍTULO 6 ================= -->
+  <section>
+    <h1><span class="num">6</span> Credenciales Oficiales de Acceso al Sistema</h1>
+    <p>
+      A continuación se detallan los usuarios predeterminados configurados en el sistema con sus respectivos roles y niveles de autorización:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Rol de Usuario</th>
+          <th>Nombre del Titular</th>
+          <th>Usuario / Correo</th>
+          <th>Contraseña</th>
+          <th>Privilegios en el Sistema</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="cred-badge cred-admin">ADMINISTRADOR</span></td>
+          <td><strong>Victor Administrador</strong></td>
+          <td><code>admin</code><br><small style="color:#64748b;">admin@studiofotopro.com</small></td>
+          <td><code>admin123</code></td>
+          <td><strong>Control Total:</strong> Dashboard, CRM, Sesiones, Pagos, Caja, Personal, Configuración, Marca, Backups e IA.</td>
+        </tr>
+        <tr>
+          <td><span class="cred-badge cred-foto">FOTÓGRAFO</span></td>
+          <td><strong>Carlos Mendoza</strong></td>
+          <td><code>carlos@studiofotopro.com</code></td>
+          <td><code>admin123</code></td>
+          <td>Acceso a Agenda, Sesiones asignadas, Galería de clientes y Equipos.</td>
+        </tr>
+        <tr>
+          <td><span class="cred-badge cred-foto">FOTÓGRAFA</span></td>
+          <td><strong>Mariana Silva</strong></td>
+          <td><code>mariana@studiofotopro.com</code></td>
+          <td><code>admin123</code></td>
+          <td>Acceso a Agenda, Sesiones asignadas, Galería de clientes y Equipos.</td>
+        </tr>
+        <tr>
+          <td><span class="cred-badge cred-recep">RECEPCIÓN</span></td>
+          <td><strong>Valeria Ponce</strong></td>
+          <td><code>recepcion@studiofotopro.com</code></td>
+          <td><code>admin123</code></td>
+          <td>Atención al cliente, nueva cita, agenda, cobro de anticipos y CRM.</td>
+        </tr>
+        <tr>
+          <td><span class="cred-badge cred-edit">EDITOR</span></td>
+          <td><strong>Diego Rivas</strong></td>
+          <td><code>editor@studiofotopro.com</code></td>
+          <td><code>admin123</code></td>
+          <td>Laboratorio digital, estado de revelado, impresiones y entregas.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card-warning">
+      <b style="color:#b45309; display:block; margin-bottom:4px;">RECOMENDACIÓN DE SEGURIDAD PARA PRODUCCIÓN:</b>
+      <p style="font-size:9.5pt; color:#92400e; margin:0;">
+        Una vez subido el sistema a su hosting público, acceda de inmediato al módulo <strong>Ajustes & Personal > Fotógrafos & Staff</strong> para cambiar las contraseñas por defecto y crear las cuentas reales del personal de su estudio.
+      </p>
+    </div>
+
+    <div class="card-box" style="margin-top: 24px;">
+      <h3 style="margin-top:0;">Resumen de Archivos Generados en el Proyecto:</h3>
+      <ul style="font-size: 9.5pt; color: #475569; padding-left: 18px; margin:0;">
+        <li><code>credencialesdelsistema.txt</code>: Archivo de texto plano con los datos de acceso rápido para el cliente.</li>
+        <li><code>Manual_Sistema_StudioFoto_Pro.pdf</code>: Este documento en formato PDF de alta calidad editorial.</li>
+      </ul>
+    </div>
+  </section>
+
+</body>
+</html>

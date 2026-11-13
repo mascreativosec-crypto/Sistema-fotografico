@@ -1,0 +1,55 @@
+================================================================================
+                STUDIOFOTO PRO - CREDENCIALES DE ACCESO AL SISTEMA
+================================================================================
+
+URL de Acceso Local:
+http://localhost/sys_fotografia/ ó http://sys_fotografia.test/
+
+--------------------------------------------------------------------------------
+1. CUENTA PRINCIPAL (SUPER ADMINISTRADOR)
+--------------------------------------------------------------------------------
+Usuario / Email: admin  (ó admin@studiofotopro.com)
+Contraseña:      admin123
+Rol:             Administrador General
+Permisos:        Acceso total (Dashboard, CRM, Sesiones, Pagos, Caja, 
+                 Personal, Configuración General, Empresa & Marca,
+                 Copias de Seguridad / Restore / Reset, Asistente IA).
+
+--------------------------------------------------------------------------------
+2. OTRAS CUENTAS DE DEMOSTRACIÓN / PERSONAL
+--------------------------------------------------------------------------------
+* FOTÓGRAFO PRINCIPAL:
+  Usuario / Email: carlos@studiofotopro.com
+  Contraseña:      admin123
+  Rol:             Fotógrafo
+
+* FOTÓGRAFA SENIOR:
+  Usuario / Email: mariana@studiofotopro.com
+  Contraseña:      admin123
+  Rol:             Fotógrafo
+
+* RECEPCIÓN & ATENCIÓN AL CLIENTE:
+  Usuario / Email: recepcion@studiofotopro.com
+  Contraseña:      admin123
+  Rol:             Recepción
+
+* EDITOR & POST-PRODUCCIÓN:
+  Usuario / Email: editor@studiofotopro.com
+  Contraseña:      admin123
+  Rol:             Editor
+
+--------------------------------------------------------------------------------
+3. DATOS DE LA BASE DE DATOS (LOCAL)
+--------------------------------------------------------------------------------
+Gestor:          MySQL / MariaDB (Laragon o XAMPP)
+Host / Servidor: localhost
+Puerto:          3306
+Base de Datos:   sys_fotografia
+Usuario:         root
+Contraseña:      (vacío por defecto en Laragon / XAMPP)
+
+================================================================================
+NOTA DE SEGURIDAD:
+Para entornos de producción (hosting o servidor en la nube), recuerde cambiar
+estas contraseñas desde el módulo Ajustes & Personal > Fotógrafos & Staff.
+================================================================================
